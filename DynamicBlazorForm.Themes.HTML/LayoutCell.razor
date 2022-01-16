@@ -1,0 +1,26 @@
+﻿@inherits DynamicBlazorForm.Core.ComponentBases.LayoutElement
+
+@if (Item != null)
+{
+    <div class="@($"col-{Item.Span}")">
+        @if (Item.TypeName == "group")
+        {
+            <div class="row" style="width:100%">
+                <div class="col-12">
+
+                    @if (Item.Groups != null)
+                    {
+                        @foreach (var group in Item.Groups)
+                        {
+                            <DynamicComponent Type="@(ElementRepository.GroupTypeData.Type)" Parameters="@(GetParameters(group))" />
+                        }
+                    }
+                </div>
+            </div>
+        }
+        else
+        {
+            <DynamicComponent Type="@(ElementRepository[Item.TypeName].Type)" Parameters="@(GetParameters())" />
+        }
+    </div>
+}

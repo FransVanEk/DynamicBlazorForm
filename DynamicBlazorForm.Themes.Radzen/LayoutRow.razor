@@ -1,0 +1,11 @@
+﻿@inherits DynamicBlazorForm.Core.ComponentBases.LayoutSubGroup
+
+<div class="row">
+    @if (SubGroup != null && SubGroup.Items != null)
+    {
+        @foreach (var cell in SubGroup.Items)
+        {
+              <DynamicComponent Type="@CellType" Parameters="@(GetParameters(cell))"  />
+        }
+    }
+</div>
