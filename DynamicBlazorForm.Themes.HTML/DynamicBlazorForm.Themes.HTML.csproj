@@ -4,6 +4,11 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+	  <Authors>Frans van Ek</Authors>
+	  <Company>Wannaapp</Company>
+	  <Description>HTML components for DynamicBlazorForm. DynamicBlazorForm is a BLAZOR input form generation that can be extended with your components. In addition, DynamicBlazorForm supports mix and match with components from other libraries like HTML, Radzen, and more.</Description>
+	  <Copyright>Copyright © 2022</Copyright>
+	  <PackageProjectUrl></PackageProjectUrl>
   </PropertyGroup>
 
 
