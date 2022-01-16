@@ -1,0 +1,13 @@
+﻿@inherits DynamicBlazorForm.Core.ComponentBases.LayoutGroup
+
+<div class="card" style="width:100%; padding:10px;">
+    @if (Group != null && Group.SubGroups != null)
+    {
+        <h3>@Group.Name</h3>
+
+        @foreach (var row in Group.SubGroups)
+        {
+            <DynamicComponent Type="@RowType" Parameters="@(GetParameters(row))" />
+        }
+    }
+</div>

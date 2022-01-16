@@ -1,0 +1,114 @@
+﻿@using JLio.Core.Models
+
+@inject DynamicElementsRepository elementRepository
+
+<h2>@Layout.Title</h2>
+
+<div class="row" style="width:100%">
+    <div class="col-12">
+        @if (Layout != null && Layout.Groups != null)
+        {
+            @foreach (var group in Layout.Groups)
+            {
+                <DynamicComponent Type="@GroupType" Parameters="@(GetParameters(group))" />
+            }
+        }
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public DynamicLayout Layout { get; set; }
+
+    [Parameter]
+    public JToken Value { get;  set; }
+
+    [Parameter]
+    public EventCallback<JToken> ValueChanged { get; set; }
+
+    Type GroupType = typeof(Group);
+
+    private bool suppressUpdateData;
+    private DataConnection DataConnection { get; set; } = new DataConnection();
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        InitForm();
+        DataConnection.Changed += UpdateData;
+    }
+
+    private void UpdateData(object sender, EventArgs e)
+    {
+        if(suppressUpdateData) { return; }
+        var executeOptions = ExecutionContext.CreateDefault();
+        DataConnection.ToList().ForEach(i =>
+                    {
+                         new JLio.Commands.Set(i.Key, new JValue(i.Value)).Execute(Value, executeOptions);
+                    });
+       // Value = JsonConvert.DeserializeObject(newObject.ToString(), Value.GetType());
+        ValueChanged.InvokeAsync(Value);
+        InitForm();
+    }
+
+    private void InitForm()
+    {
+        suppressUpdateData = true;
+        GroupType = elementRepository.GroupTypeData.Type;
+        GetDataConnection();
+        suppressUpdateData = false;
+    }
+
+    private void GetDataConnection()
+    {
+        DataConnection.Clear();
+        RecursiveParse(DataConnection, JToken.FromObject(Value));
+    }
+
+    public static void RecursiveParse(DataConnection collection, JToken token)
+    {
+        foreach (var item in token.Children())
+        {
+            if (item.HasValues)
+            {
+                RecursiveParse(collection, item);
+            }
+            else
+            {
+                switch (item.Type)
+                {
+                    case JTokenType.Date:
+                        collection.Upsert($"$.{item.Path}", item.Value<DateTime>());
+                        break;
+                    case JTokenType.Integer:
+                        collection.Upsert($"$.{item.Path}", item.Value<long>());
+                        break;
+                    case JTokenType.String:
+                        collection.Upsert($"$.{item.Path}", item.Value<string>());
+                        break;
+                    case JTokenType.Boolean:
+                        collection.Upsert($"$.{item.Path}", item.Value<bool>());
+                        break;
+                    case JTokenType.Float:
+                        collection.Upsert($"$.{item.Path}", item.Value<double>());
+                        break;
+                    case JTokenType.Guid:
+                        collection.Upsert($"$.{item.Path}", item.Value<Guid>());
+                        break;
+                    default:
+                        collection.Upsert($"$.{item.Path}", item.Value<object>());
+                        break;
+                }
+            }
+        }
+    }
+
+    private Dictionary<string, object> GetParameters(Group group)
+    {
+        var result = new Dictionary<string, object>();
+        result.Add("DataConnection", DataConnection);
+        result.Add("Group", group);
+        return result;
+    }
+}
