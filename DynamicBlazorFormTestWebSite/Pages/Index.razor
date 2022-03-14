@@ -6,7 +6,10 @@
 <DynamicForm Layout="@model" @bind-Value=myData></DynamicForm>
 <div>
     <input type="text" class="form-control" readonly value="@JsonConvert.SerializeObject(myData, Formatting.Indented)" placeholder="">
-    </div>
+     <button @onclick="UpdateHeading">
+        Update Object
+    </button>
+ </div>
 
   
 
@@ -15,6 +18,10 @@
 
     private JToken myData { get; set; }
 
+    private void UpdateHeading()
+    {
+        var result = myData.ToObject<Demo>();
+    }
 
     protected override async Task OnInitializedAsync()
     {

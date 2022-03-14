@@ -18,6 +18,14 @@ namespace DynamicBlazorForm.Core.Layout
            return new SubGroup(index);
         }
 
+        public static SubGroup AtIndex(int index, string? layoutHint)
+        {
+            return new SubGroup(index) { LayoutHint = layoutHint };
+        }
+
+        [JsonProperty("layoutHint")]
+        public string? LayoutHint { get; set; } = "";
+
         [JsonProperty("index")]
         public int Index { get; set; }
         [JsonProperty("items")]
