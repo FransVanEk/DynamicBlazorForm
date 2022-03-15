@@ -2,6 +2,7 @@
 
 @inject DynamicElementsRepository formElementsRepository
 @using DynamicBlazorForm.Core.Layout.FluentApi
+@using System.Dynamic
 
 <DynamicForm Layout="@model" @bind-Value=myData></DynamicForm>
 <div>
@@ -21,19 +22,21 @@
     private void UpdateHeading()
     {
         var result = myData.ToObject<Demo>();
+
+        var text = myData.ToString(); 
     }
 
     protected override async Task OnInitializedAsync()
     {
         myData = JToken.FromObject(new Demo());
-
         model = new DynamicLayout("leeftijds vragen")
                     .WithGroup(
                        Group.WithName("demo")
                             .WithSubGroup(
                                 SubGroup.AtIndex(1)
                                 .WithNumberInput(1, "$.demo1.test3", "leeftijd", 4)
-                                .WithTextInput(2, "$.demo1.test2", "leeftijd in text", 8)
+                                .WithTextInput(2, "$.demo1.test2", "leeftijd in text", 4)
+                                .WithBooleanInput(3, "$.demo1.test4", "echt waar?",4)
                             )
                             .WithSubGroup(
                                 SubGroup.AtIndex(2)
@@ -42,80 +45,8 @@
                             )
                     );
 
+        //var modeltext = JsonConvert.SerializeObject(model, Formatting.None, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore});
 
 
-        //model = new DynamicLayout()
-        //    {
-        //        Groups = new List<DynamicBlazorForm.Core.Layout.Group> {
-        //                new DynamicBlazorForm.Core.Layout.Group
-        //                    {
-        //                        Name = "demo",
-        //                        SubGroups = new List<SubGroup>{
-        //                            new SubGroup{
-        //                                Index = 1 ,
-        //                                Items = new List<Item>{
-        //                                    new Item{ Index = 1, Path = "$.demo1.test3", LabelText="leeftijd", TypeName="NumberInput", Span =2},
-        //                                    new Item{ Index = 2, Path = "$.demo1.test2", LabelText="leeftijd in text", TypeName="TextInput", Span =10},
-        //                                },
-        //                            },
-        //                              new SubGroup{
-        //                                Index = 1 ,
-        //                                Items = new List<Item>{
-        //                                    new Item{ Index = 1, Path = "$.demo1.test3", TypeName="NumberInput", Span =6},
-        //                                    new Item{ Index = 2, Path = "$.demo1.test2", TypeName="TextInput", Span =6},
-        //                                },
-        //                            },
-        //                            new SubGroup{
-        //                                Index = 1 ,
-        //                                Items = new List<Item>{
-        //                                    new Item{ Index = 1, Path = "$.demo2.test1", TypeName="DateInput", Span =4},
-        //                                    new Item{ Index = 2, Path = "$.demo2.test2", TypeName="TextInput", Span =6},
-        //                                },
-        //                            },
-        //                            new SubGroup{
-        //                                Index = 1 ,
-        //                                Items = new List<Item>{
-        //                                    new Item{ Index = 1, Path = "$.demo3.test1", LabelText = "my demo",  TypeName="Label", Span =1},
-        //                                    new Item{ Index = 2, Path = "$.demo3.test2", TypeName="TextInput", Span =4},
-        //                                    new Item{ Index = 3, Path = "$.demo3.test3", TypeName="NumberInput", Span =7},
-        //                                },
-        //                            },
-        //                            new SubGroup
-        //                            {
-        //                                Index = 2,
-        //                                Items = new List<Item>{
-        //                                    new Item{ Index = 1, Path = "$.demo4.test1", TypeName="DateInput", Span =4},
-        //                                    new Item{
-        //                                        Index = 2,
-        //                                        Path= "groep",
-        //                                        Span=8,
-        //                                        TypeName = "group",
-        //                                        Groups = new List<DynamicBlazorForm.Core.Layout.Group>{new DynamicBlazorForm.Core.Layout.Group{
-        //                                                                            Name = "Details",
-        //                                                                            SubGroups = new List<SubGroup>{
-        //                                                                                             new SubGroup{
-        //                                                                                                 Index = 1,
-        //                                                                                                 Items = new List<Item>{
-        //                                                                                                    new Item{ Index = 1, Path = "$.demo4.test2", LabelText="test twee", TypeName="Label", Span =4},
-        //                                                                                                    new Item{ Index = 2, Path = "$.demo4.test3", LabelText="test drie", TypeName="Label", Span =4}
-        //                                                                                                }
-        //                                                                                }
-        //                                                                            }
-        //                                                                    }
-        //                                                            }
-        //                                                },
-        //                                },
-        //                            },
-        //                            new SubGroup{
-        //                                Index = 1 ,
-        //                                Items = new List<Item>{
-        //                                    new Item{ Index = 1, Path = "$.demo5.test1", TypeName="DateInput", Span =2},
-        //                                    new Item{ Index = 2, Path = "$.demo5.test2", TypeName="TextInput", Span =10},
-        //                                },
-        //                            }
-        //                        }
-        //                    }
-        //             }
-        //    };
     }
 }

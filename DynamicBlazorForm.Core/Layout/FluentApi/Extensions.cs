@@ -57,8 +57,19 @@ namespace DynamicBlazorForm.Core.Layout.FluentApi
         public static SubGroup WithNumberInput(this SubGroup subGroup, int index, string path, string labelText, int span)
         {
             return subGroup.WithNumberInput(index, path, labelText,  span, string.Empty);
-           
         }
+
+        public static SubGroup WithBooleanInput(this SubGroup subGroup, int index, string path, string labelText, int span, string? layoutHint)
+        {
+            subGroup.Items.Add(new Item(index, path, labelText,"BoolInput", span, layoutHint));
+            return subGroup;
+        }
+
+        public static SubGroup WithBooleanInput(this SubGroup subGroup, int index, string path, string labelText, int span)
+        {
+            return subGroup.WithBooleanInput(index, path, labelText, span, string.Empty);
+        }
+
 
         public static SubGroup WithTextInput(this SubGroup subGroup, int index, string path, string labelText, int span, string? layoutHint)
         {
