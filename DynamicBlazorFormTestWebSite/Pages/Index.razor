@@ -4,7 +4,7 @@
 @using DynamicBlazorForm.Core.Layout.FluentApi
 @using System.Dynamic
 
-<DynamicForm Layout="@model" @bind-Value=myData></DynamicForm>
+<DynamicForm @ref="df" Layout="@model" @bind-Value=myData></DynamicForm>
 <div>
     <input type="text" class="form-control" readonly value="@JsonConvert.SerializeObject(myData, Formatting.Indented)" placeholder="">
      <button @onclick="UpdateHeading">
@@ -19,16 +19,20 @@
 
     private JToken myData { get; set; }
 
+    DynamicForm df { get; set; }
+
     private void UpdateHeading()
     {
         var result = myData.ToObject<Demo>();
-
+        result.demo1.test3 = result.demo1.test3 + 1; 
+        myData = JToken.FromObject(result);
+        df.InitForm();
         var text = myData.ToString(); 
     }
 
     protected override async Task OnInitializedAsync()
     {
-        myData = JToken.FromObject(new Demo());
+        myData = new JObject();
         model = new DynamicLayout("leeftijds vragen")
                     .WithGroup(
                        Group.WithName("demo")
