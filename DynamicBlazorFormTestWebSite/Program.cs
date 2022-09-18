@@ -20,6 +20,7 @@ namespace DynamicBlazorFormTestWebSite
                               .GetHTMLDefaultSettings()
                               .Add("TextInput",   typeof(TextInput))
                               .Add("NumberInput", typeof(NumberInput))
+                              .Add("BoolInput", typeof(BoolInput))
                               .Add("DateInput", typeof(DynamicBlazorForm.Themes.RadzenForm.DateInput)));
 
             await builder.Build().RunAsync();

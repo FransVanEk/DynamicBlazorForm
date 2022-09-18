@@ -20,5 +20,7 @@ namespace DynamicBlazorFormTestWebSite.Shared.Models
         public string test2 { get; set; } = Guid.NewGuid().ToString();
 
         public long test3 { get; set; } = DateTime.Now.Ticks;
+
+        public bool test4 { get; set; } = true;
     }
 }

@@ -18,9 +18,16 @@ namespace DynamicBlazorForm.Core.Layout
         {
             return new Group(name);
         }
+        public static Group WithName(string name,string? layoutHint)
+        {
+            return new Group(name) { LayoutHint = layoutHint };
+        }
 
         [JsonProperty("name")]
         public string Name { get; set; }
+
+        [JsonProperty("layoutHint")]
+        public string? LayoutHint { get; set; } = "";
 
         [JsonProperty("subGroups")]
         public List<SubGroup> SubGroups { get; set; } = new List<SubGroup>();

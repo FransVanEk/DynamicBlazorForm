@@ -45,24 +45,31 @@
 
     protected override async Task OnInitializedAsync()
     {
-
         InitForm();
         DataConnection.Changed += UpdateData;
     }
 
     private void UpdateData(object sender, EventArgs e)
     {
-        if (suppressUpdateData) { return; }
-        var executeOptions = ExecutionContext.CreateDefault();
-        DataConnection.ToList().ForEach(i =>
-                    {
-                        new JLio.Commands.Set(i.Key, new JValue(i.Value)).Execute(Value, executeOptions);
-                    });
+        if(suppressUpdateData) { return; }
+        SetValue();
         ValueChanged.InvokeAsync(Value);
         InitForm();
     }
 
-    private void InitForm()
+    public void SetValue()
+    {
+        var executeOptions = ExecutionContext.CreateDefault();
+        DataConnection.ToList().ForEach(i =>
+                    {
+                        new JLio.Commands.Put(i.Key, new JValue(i.Value)).Execute(Value, executeOptions);
+                    });
+       // Value = JsonConvert.DeserializeObject(newObject.ToString(), Value.GetType());
+        ValueChanged.InvokeAsync(Value);
+        InitForm();
+    }
+
+    public void InitForm()
     {
         suppressUpdateData = true;
         GroupType = elementRepository.GroupTypeData.Type;
