@@ -18,11 +18,22 @@
 
 @code {
 
+    private DynamicLayout _layout { get; set; }
     [Parameter]
-    public DynamicLayout Layout { get; set; }
+    public DynamicLayout Layout { get
+        {
+            return _layout;
+        }
+        set {
+            if(_layout != null &&  _layout.ToString() != value.ToString()) {
+                InitForm();
+            }
+            _layout = value;
+        } 
+    }
 
     [Parameter]
-    public JToken Value { get;  set; }
+    public JToken Value { get; set; }
 
     [Parameter]
     public EventCallback<JToken> ValueChanged { get; set; }
@@ -41,13 +52,12 @@
 
     private void UpdateData(object sender, EventArgs e)
     {
-        if(suppressUpdateData) { return; }
+        if (suppressUpdateData) { return; }
         var executeOptions = ExecutionContext.CreateDefault();
         DataConnection.ToList().ForEach(i =>
                     {
-                         new JLio.Commands.Set(i.Key, new JValue(i.Value)).Execute(Value, executeOptions);
+                        new JLio.Commands.Set(i.Key, new JValue(i.Value)).Execute(Value, executeOptions);
                     });
-       // Value = JsonConvert.DeserializeObject(newObject.ToString(), Value.GetType());
         ValueChanged.InvokeAsync(Value);
         InitForm();
     }
