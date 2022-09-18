@@ -18,11 +18,22 @@
 
 @code {
 
+    private DynamicLayout _layout { get; set; }
     [Parameter]
-    public DynamicLayout Layout { get; set; }
+    public DynamicLayout Layout { get
+        {
+            return _layout;
+        }
+        set {
+            if(_layout != null &&  _layout.ToString() != value.ToString()) {
+                InitForm();
+            }
+            _layout = value;
+        } 
+    }
 
     [Parameter]
-    public JToken Value { get;  set; }
+    public JToken Value { get; set; }
 
     [Parameter]
     public EventCallback<JToken> ValueChanged { get; set; }
@@ -53,6 +64,9 @@
                     {
                         new JLio.Commands.Put(i.Key, new JValue(i.Value)).Execute(Value, executeOptions);
                     });
+       // Value = JsonConvert.DeserializeObject(newObject.ToString(), Value.GetType());
+        ValueChanged.InvokeAsync(Value);
+        InitForm();
     }
 
     public void InitForm()
