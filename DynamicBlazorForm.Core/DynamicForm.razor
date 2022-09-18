@@ -18,19 +18,8 @@
 
 @code {
 
-    private DynamicLayout _layout { get; set; }
     [Parameter]
-    public DynamicLayout Layout { get
-        {
-            return _layout;
-        }
-        set {
-            if(_layout != null &&  _layout.ToString() != value.ToString()) {
-                InitForm();
-            }
-            _layout = value;
-        } 
-    }
+    public DynamicLayout Layout { get; set; }
 
     [Parameter]
     public JToken Value { get; set; }
@@ -43,6 +32,8 @@
     private bool suppressUpdateData;
     private DataConnection DataConnection { get; set; } = new DataConnection();
 
+
+
     protected override async Task OnInitializedAsync()
     {
         InitForm();
@@ -51,20 +42,20 @@
 
     private void UpdateData(object sender, EventArgs e)
     {
-        if(suppressUpdateData) { return; }
+        if (suppressUpdateData) { return; }
         SetValue();
         ValueChanged.InvokeAsync(Value);
         InitForm();
     }
 
-    public void SetValue()
+    private void SetValue()
     {
         var executeOptions = ExecutionContext.CreateDefault();
         DataConnection.ToList().ForEach(i =>
                     {
                         new JLio.Commands.Put(i.Key, new JValue(i.Value)).Execute(Value, executeOptions);
                     });
-       // Value = JsonConvert.DeserializeObject(newObject.ToString(), Value.GetType());
+        
         ValueChanged.InvokeAsync(Value);
         InitForm();
     }
@@ -76,6 +67,15 @@
         GetDataConnection();
         suppressUpdateData = false;
     }
+
+    public void ResetData()
+    { 
+        suppressUpdateData = true;
+        Value = new JObject();
+        DataConnection.Clear();
+        suppressUpdateData = false;
+    }
+
 
     private void GetDataConnection()
     {

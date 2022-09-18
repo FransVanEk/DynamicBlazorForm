@@ -20,8 +20,4 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.0-rc.2.21480.10" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\DynamicBlazorForm.Core\DynamicBlazorForm.Core.csproj" />
-  </ItemGroup>
-
 </Project>
