@@ -1,6 +1,10 @@
 ﻿@inherits DynamicBlazorForm.Core.ComponentBases.DateInput
 
 <div class="form-group">
-     <RadzenDatePicker @bind-Value=@Value DateFormat="d"  />
+    <RadzenFormField Text="@Item.LabelText" Variant="Variant.Flat">
+        <ChildContent>
+            <RadzenDatePicker @bind-Value=@Value DateFormat="d" />
+        </ChildContent>
+    </RadzenFormField>
 </div>
 

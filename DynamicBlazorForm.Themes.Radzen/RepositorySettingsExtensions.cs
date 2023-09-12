@@ -13,5 +13,15 @@ namespace DynamicBlazorForm.Themes.RadzenForm
 
             return source;
         }
+        public static DynamicElementsRepository GetRadzenDefaultFormElements(this DynamicElementsRepository source)
+        {
+
+            source.Add("TextInput", typeof(TextInput));
+            source.Add("NumberInput", typeof(NumberInput));
+            source.Add("BoolInput", typeof(BoolInput));
+            source.Add("DateInput", typeof(DateInput));
+            return source;
+        }
+
     }
 }

@@ -1,4 +1,11 @@
 ﻿@inherits DynamicBlazorForm.Core.ComponentBases.NumberInput
 <div class="form-group">
-    <RadzenNumeric TValue="long" @bind-Value="Value" />
+    <RadzenFormField Text="@Item.LabelText" Variant="Variant.Flat">
+        <ChildContent>
+            <RadzenNumeric TValue="long" @bind-Value="Value" />
+        </ChildContent>
+        <Helper>
+            <RadzenText TextStyle="TextStyle.Caption">must be a number</RadzenText>
+        </Helper>
+    </RadzenFormField>
 </div>

@@ -1,5 +1,6 @@
 using DynamicBlazorForm.Core;
-using DynamicBlazorForm.Themes.HTML;
+
+using DynamicBlazorForm.Themes.RadzenForm;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
@@ -17,11 +18,10 @@ namespace DynamicBlazorFormTestWebSite
 
             builder.Services.AddScoped(sp =>
                         new DynamicElementsRepository()
-                              .GetHTMLDefaultSettings()
-                              .Add("TextInput",   typeof(TextInput))
-                              .Add("NumberInput", typeof(NumberInput))
-                              .Add("BoolInput", typeof(BoolInput))
-                              .Add("DateInput", typeof(DynamicBlazorForm.Themes.RadzenForm.DateInput)));
+                              .GetRadzenDefaultSettings()
+                              .GetRadzenDefaultFormElements()
+                              )
+                           ; 
 
             await builder.Build().RunAsync();
         }

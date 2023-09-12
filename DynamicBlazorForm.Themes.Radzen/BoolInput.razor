@@ -1,6 +1,11 @@
 ﻿@inherits DynamicBlazorForm.Core.ComponentBases.BoolInput
 
 <div class="form-group">
-    <RadzenCheckBox @bind-Value=@Value TValue="bool"/>
+    <RadzenCheckBox @bind-Value=@Value TValue="bool" Placeholder="@Item.LabelText" />
+    <RadzenFormField Variant="Variant.Flat">
+        <ChildContent>
+            <RadzenLabel Text="@Item.LabelText" Component="CheckBox1" Style="margin-left: 8px; vertical-align: middle;" />
+        </ChildContent>
+    </RadzenFormField>
 </div>
 

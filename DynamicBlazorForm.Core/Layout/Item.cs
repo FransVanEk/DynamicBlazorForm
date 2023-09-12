@@ -8,22 +8,18 @@ namespace DynamicBlazorForm.Core.Layout
         {
 
         }
-        public Item(int index, string path, string labelText, string typeName, int span, string? layoutHint)
+        public Item(int index, string path, string labelText, string typeName,  string? layoutHint)
         {
             Index = index;
             Path = path;
             LabelText = labelText;
             TypeName = typeName;
-            Span = span;
             LayoutHint = layoutHint;
         }
 
         [JsonProperty("index")]
         public int Index { get; set; }
-
-        [JsonProperty("span")]
-        public int Span { get; set; }
-
+      
         [JsonProperty("path")]
         public string Path { get; set; } = string.Empty;
 

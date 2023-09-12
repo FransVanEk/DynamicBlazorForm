@@ -4,10 +4,13 @@
     @if (Group != null && Group.SubGroups != null)
     {
         <h3>@Group.Name</h3>
+        <RadzenStack Orientation="Orientation.Vertical" >
 
         @foreach (var row in Group.SubGroups)
         {
             <DynamicComponent Type="@RowType" Parameters="@(GetParameters(row))" />
         }
+
+        </RadzenStack>
     }
 </div>

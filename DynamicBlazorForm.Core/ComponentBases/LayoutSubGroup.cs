@@ -23,9 +23,11 @@ namespace DynamicBlazorForm.Core.ComponentBases
 
         public Dictionary<string, object> GetParameters(Item item)
         {
-            var result = new Dictionary<string, object>();
-            result.Add("Item", item);
-            result.Add("DataConnection", DataConnection);
+            var result = new Dictionary<string, object>
+            {
+                { "Item", item },
+                { "DataConnection", DataConnection }
+            };
             return result;
         }
     }

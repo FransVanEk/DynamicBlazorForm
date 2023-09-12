@@ -13,7 +13,7 @@ namespace DynamicBlazorForm.Core.Layout.FluentApi
             dynamicLayout.Groups.Add(group);
             return dynamicLayout;
         }
-     
+
         public static Group WithSubGroup(this Group group, SubGroup subGroup)
         {
             group.SubGroups.Add(subGroup);
@@ -26,74 +26,80 @@ namespace DynamicBlazorForm.Core.Layout.FluentApi
             return subGroup;
         }
 
-        public static SubGroup WithItem(this SubGroup subGroup, int index, string path, string labelText, string typeName, int span)
+        public static SubGroup WithItem(this SubGroup subGroup, int index, string path, string labelText, string typeName)
         {
-            return subGroup.WithItem(new Item(index, path, labelText, typeName, span, string.Empty));
+            return subGroup.WithItem(new Item(index, path, labelText, typeName, string.Empty));
         }
 
-        public static SubGroup WithItem(this SubGroup subGroup, int index, string path, string labelText, string typeName, int span, string? layoutHint)
+        public static SubGroup WithItem(this SubGroup subGroup, int index, string path, string labelText, string typeName, string? layoutHint)
         {
-            subGroup.Items.Add(new Item(index,path,labelText,typeName,span,layoutHint));
+            subGroup.Items.Add(new Item(index, path, labelText, typeName, layoutHint));
             return subGroup;
         }
 
-        public static SubGroup WithDateInput(this SubGroup subGroup, int index, string path, string labelText, int span, string? layoutHint)
+        public static SubGroup WithDateInput(this SubGroup subGroup, int index, string path, string labelText, string? layoutHint)
         {
-            subGroup.Items.Add(new Item(index, path, labelText, "DateInput", span, layoutHint));
+            subGroup.Items.Add(new Item(index, path, labelText, "DateInput", layoutHint));
             return subGroup;
         }
 
-        public static SubGroup WithDateInput(this SubGroup subGroup, int index, string path, string labelText, int span)
+        public static SubGroup WithDateInput(this SubGroup subGroup, int index, string path, string labelText)
         {
-            return subGroup.WithDateInput(index, path, labelText, span, string.Empty);
+            return subGroup.WithDateInput(index, path, labelText, string.Empty);
         }
 
-        public static SubGroup WithNumberInput(this SubGroup subGroup, int index, string path, string labelText, int span, string? layoutHint)
+        public static SubGroup WithNumberInput(this SubGroup subGroup, int index, string path, string labelText, string? layoutHint)
         {
-            subGroup.Items.Add(new Item(index, path, labelText, "NumberInput", span,layoutHint));
+            subGroup.Items.Add(new Item(index, path, labelText, "NumberInput", layoutHint));
             return subGroup;
         }
 
-        public static SubGroup WithNumberInput(this SubGroup subGroup, int index, string path, string labelText, int span)
+        public static SubGroup WithNumberInput(this SubGroup subGroup, int index, string path, string labelText)
         {
-            return subGroup.WithNumberInput(index, path, labelText,  span, string.Empty);
+            return subGroup.WithNumberInput(index, path, labelText, string.Empty);
         }
 
-        public static SubGroup WithBooleanInput(this SubGroup subGroup, int index, string path, string labelText, int span, string? layoutHint)
+        public static SubGroup WithBooleanInput(this SubGroup subGroup, int index, string path, string labelText, string? layoutHint)
         {
-            subGroup.Items.Add(new Item(index, path, labelText,"BoolInput", span, layoutHint));
+            subGroup.Items.Add(new Item(index, path, labelText, "BoolInput", layoutHint));
             return subGroup;
         }
 
-        public static SubGroup WithBooleanInput(this SubGroup subGroup, int index, string path, string labelText, int span)
+        public static SubGroup WithBooleanInput(this SubGroup subGroup, int index, string path, string labelText)
         {
-            return subGroup.WithBooleanInput(index, path, labelText, span, string.Empty);
+            return subGroup.WithBooleanInput(index, path, labelText, string.Empty);
         }
 
 
-        public static SubGroup WithTextInput(this SubGroup subGroup, int index, string path, string labelText, int span, string? layoutHint)
+        public static SubGroup WithTextInput(this SubGroup subGroup, int index, string path, string labelText, string? layoutHint)
         {
-            subGroup.Items.Add(new Item(index, path, labelText, "TextInput", span,layoutHint));
+            subGroup.Items.Add(new Item(index, path, labelText, "TextInput", layoutHint));
             return subGroup;
         }
 
-        public static SubGroup WithTextInput(this SubGroup subGroup, int index, string path, string labelText, int span)
+        public static SubGroup WithTextInput(this SubGroup subGroup, int index, string path, string labelText)
         {
-            return subGroup.WithTextInput(index, path, labelText, span, string.Empty);
+            return subGroup.WithTextInput(index, path, labelText, string.Empty);
         }
 
-        public static SubGroup WithLabel(this SubGroup subGroup, int index, string path, string labelText, int span, string? layoutHint)
+        public static SubGroup WithLabel(this SubGroup subGroup, int index, string path, string labelText, string? layoutHint)
         {
-            subGroup.Items.Add(new Item(index, path, labelText, "TextLabel", span,layoutHint));
+            subGroup.Items.Add(new Item(index, path, labelText, "TextLabel", layoutHint));
             return subGroup;
         }
 
-        public static SubGroup WithLabel(this SubGroup subGroup, int index, string path, string labelText, int span)
+        public static SubGroup WithLabel(this SubGroup subGroup, int index, string path, string labelText)
         {
-            subGroup.WithLabel(index, path, labelText, span, string.Empty);
+            subGroup.WithLabel(index, path, labelText, string.Empty);
             return subGroup;
         }
 
-        
+        public static SubGroup With(this SubGroup subGroup, int index, string path, string labelText)
+        {
+            subGroup.WithLabel(index, path, labelText, string.Empty);
+            return subGroup;
+        }
+
+
     }
 }

@@ -1,5 +1,10 @@
 ﻿@inherits DynamicBlazorForm.Core.ComponentBases.TextInput
 
 <div class="form-group">
-    <RadzenTextBox @bind-value="Value" />
+    <RadzenFormField Text="@Item.LabelText" Variant="Variant.Flat">
+        <ChildContent>
+            <RadzenTextBox @bind-value="Value" />
+        </ChildContent>
+    </RadzenFormField>
+    
 </div>

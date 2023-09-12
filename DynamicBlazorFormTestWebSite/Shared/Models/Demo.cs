@@ -6,10 +6,7 @@ namespace DynamicBlazorFormTestWebSite.Shared.Models
 
 
         public DemoBase demo1 { get; set; } = new DemoBase();
-        public DemoBase demo2 { get; set;} = new DemoBase();
-        public DemoBase demo3 { get; set; } = new DemoBase();
-        public DemoBase demo4 { get; set; } = new DemoBase();
-        public DemoBase demo5 { get; set; } = new DemoBase();
+     
 
     }
 

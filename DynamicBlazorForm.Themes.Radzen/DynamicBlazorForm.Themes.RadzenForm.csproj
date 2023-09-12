@@ -18,7 +18,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.0" />
-    <PackageReference Include="Radzen.Blazor" Version="3.19.7" />
+    <PackageReference Include="Radzen.Blazor" Version="4.15.11" />
   </ItemGroup>
 
   <ItemGroup>
